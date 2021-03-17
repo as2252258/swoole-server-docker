@@ -34,3 +34,7 @@ RUN mkdir /webroot/ && cd /webroot/ \
          && php -r "unlink('composer-setup.php');" \
          && chmod +x composer.phar \
          && mv composer.phar /usr/local/bin/composer
+         
+         
+         
+         
