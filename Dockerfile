@@ -3,7 +3,7 @@ FROM php:8.0.3-cli
 RUN apt-get update
 
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev git librdkafka-dev zip unzip \
-        net-tools openssl libssl-dev curl libcurl4-openssl-dev
+        net-tools openssl libssl-dev curl libcurl4-openssl-dev iputils-ping
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
