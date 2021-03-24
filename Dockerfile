@@ -21,6 +21,18 @@ RUN pecl download swoole \
         ) \
         && rm -r /tmp/swoole \
         && docker-php-ext-enable swoole
+        
+RUN git clone https://github.com/swoole/ext-serialize.git \
+        && ( \
+            cd ext-serialize \
+            && phpize \
+            && ./configure \
+            && make -j "$(nproc)" \
+            && make install \
+        ) \
+        && rm -r ext-serialize \
+        && docker-php-ext-enable swoole_serialize
+
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
 
