@@ -48,5 +48,10 @@ RUN mkdir /webroot/ && cd /webroot/ \
          && mv composer.phar /usr/local/bin/composer
          
          
-         
+RUN apt-get update \
+        && apt-get install openssh-client -y \
+        && rm -rf /var/lib/apt/lists/* \
+        && echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
+        && echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
+
          
