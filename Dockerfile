@@ -53,6 +53,3 @@ RUN apt-get update \
         && rm -rf /var/lib/apt/lists/* \
         && echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
         && echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
-
-COPY /root/.ssh/id_rsa.pub /root/.ssh/id_rsa.pub
-
