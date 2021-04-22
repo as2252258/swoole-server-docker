@@ -47,7 +47,8 @@ RUN mkdir /webroot/ && cd /webroot/ \
          && chmod +x composer.phar \
          && mv composer.phar /usr/local/bin/composer
          
-         
+RUN ulimit -c 0
+
 RUN apt-get update \
         && apt-get install openssh-client -y \
         && rm -rf /var/lib/apt/lists/* \
