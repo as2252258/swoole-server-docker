@@ -15,7 +15,7 @@ RUN pecl download swoole \
         && ( \
             cd /tmp/swoole \
             && phpize \
-            && ./configure --enable-openssl --enable-debug --enable-debug-log --enable-http2 --enable-swoole-json --enable-swoole-curl \
+            && ./configure --enable-openssl --enable-debug --enable-http2 --enable-swoole-json --enable-swoole-curl \
             && make -j "$(nproc)" \
             && make install \
         ) \
