@@ -1,4 +1,4 @@
-FROM php:8.0.6-cli
+FROM php:8.0.11-cli
 
 RUN apt-get update
 
@@ -15,24 +15,12 @@ RUN pecl download swoole \
         && ( \
             cd /tmp/swoole \
             && phpize \
-            && ./configure --enable-openssl --enable-debug --enable-http2 --enable-swoole-json --enable-swoole-curl \
+            && ./configure --enable-openssl --enable-http2 --enable-swoole-json --enable-swoole-curl \
             && make -j "$(nproc)" \
             && make install \
         ) \
         && rm -r /tmp/swoole \
         && docker-php-ext-enable swoole
-        
-RUN git clone https://github.com/swoole/ext-serialize.git /tmp/ext-serialize \
-        && ( \
-            cd /tmp/ext-serialize \
-            && phpize \
-            && ./configure \
-            && make -j "$(nproc)" \
-            && make install \
-        ) \
-        && rm -r /tmp/ext-serialize \
-        && docker-php-ext-enable swoole_serialize
-
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
 
@@ -46,11 +34,3 @@ RUN mkdir /webroot/ && cd /webroot/ \
          && php -r "unlink('composer-setup.php');" \
          && chmod +x composer.phar \
          && mv composer.phar /usr/local/bin/composer
-         
-RUN ulimit -c 0
-
-RUN apt-get update \
-        && apt-get install openssh-client -y \
-        && rm -rf /var/lib/apt/lists/* \
-        && echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
-        && echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
